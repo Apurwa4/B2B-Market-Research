@@ -1,10 +1,11 @@
 'use client';
 import { useState, type FormEvent } from 'react';
+import { signInMessages } from '@/lib/sign-in-messages.mjs';
 
-export default function LoginForm({ error }: { error: boolean }) {
+export default function LoginForm({ error }: { error?: string }) {
   const [email, setEmail] = useState('');
   const [busy, setBusy] = useState(false);
-  const [message, setMessage] = useState(error ? 'This sign-in link could not grant access. Request a new link or contact your workspace administrator.' : '');
+  const [message, setMessage] = useState(error ? signInMessages[error as keyof typeof signInMessages] || signInMessages.unavailable : '');
   async function submit(event: FormEvent) {
     event.preventDefault(); setBusy(true); setMessage('');
     try {
