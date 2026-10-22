@@ -19,7 +19,9 @@ Previously created local preview records are preserved when migrating from the o
 
 ## Features
 
-- Overview with company counts, team progress, and resource shortcuts.
+- Overview with clickable company/CRM/contact/follow-up metrics, a contact completion ring, outreach queue, and due/overdue follow-ups calculated from saved dates.
+- Company profiles open in a side panel with contact links, outreach status, pitching points, notes, and an edit action.
+- Company directory supports sorting, optional columns, a fixed company column while scrolling, and cards on mobile.
 - Team performance charts on Overview and Teams: research/CRM/contact counts, contact completion rates, GTe/GTa filters, and click-through to company records. Charts use current saved statuses, not historical activity trends.
 - Company search, team/product/industry/status filters, pagination, CSV export, and add/edit forms.
 - CRM and contacted toggles, call outcomes, booklet-sent status, follow-up dates, pitching points, and notes.
