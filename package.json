@@ -1,0 +1,31 @@
+{
+  "name": "igt-market-research",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npm run build && wrangler dev --ip 127.0.0.1 --port 3100",
+    "dev:ui": "next dev",
+    "build": "next build && node scripts/build-worker.mjs",
+    "typecheck": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:local": "wrangler d1 migrations apply DB --local",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "dependencies": {
+    "next": "^16.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "lucide-react": "^0.468.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "esbuild": "^0.25.0",
+    "wrangler": "^4.0.0",
+    "drizzle-kit": "^0.31.0",
+    "drizzle-orm": "^0.45.0"
+  }
+}
