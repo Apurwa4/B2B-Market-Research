@@ -1,6 +1,6 @@
 # iGT · Market Research
 
-A **Next.js + TypeScript application** built from the visible tabs of the Winter 26.27 workbook. Develop locally with SQLite, and publish to Vercel with Supabase storage and invited-email sign-in. No ChatGPT Sites or Cloudflare account is required.
+A **Next.js + TypeScript application** built from the visible tabs of the Winter 26.27 workbook. Develop locally with SQLite, and publish to Vercel with Supabase storage. The workspace is currently public: anyone with the URL can view, add, and edit company records without signing in. No ChatGPT Sites or Cloudflare account is required.
 
 ## Run locally
 
@@ -47,7 +47,7 @@ npm start
 - `lib/company-api.mjs` — input validation, workbook seeding, and company operations.
 - `lib/database.mjs` — selects local SQLite or hosted Supabase storage.
 - `lib/supabase-store.mjs` — server-only hosted company operations.
-- `lib/access-policy.mjs` and `lib/workspace-auth.ts` — invited-email authorization.
+- `lib/access-policy.mjs` and `lib/workspace-auth.ts` — public access by default, with optional invited-email authorization.
 - `data/workspace-content.json` — public interface copy and links, without private company seed data.
 - `data/workbook.json` — visible workbook contents and original resource URLs.
 - `scripts/import-workbook.py` — workbook importer, excluding hidden tabs before reading cell data.
@@ -64,7 +64,7 @@ The seed runs once per database. Re-importing the snapshot does not overwrite sa
 
 ## Publish on Vercel
 
-The Vercel and Supabase account connections are required to provision resources and publish. An empty `WORKSPACE_ALLOWED_EMAILS` list deliberately leaves the hosted workspace closed. No sign-in emails are sent automatically: only an allowlisted visitor requesting a link on the login page triggers an email.
+The workspace is public by default on both localhost and Vercel. No email verification is required, and sign-in emails are disabled in public mode. Anyone with the deployed URL can view, add, and edit records. Database credentials remain on the server; Supabase browser access stays restricted.
 
 1. Create or select a Supabase project and apply `supabase/migrations/202610220001_research_workspace.sql`. Tables have RLS enabled; browser roles cannot access the company data directly.
 2. Configure `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, and `SUPABASE_SECRET_KEY` as server environment variables. `.env.example` lists the names. Do not commit secret values.
@@ -78,12 +78,11 @@ The Vercel and Supabase account connections are required to provision resources 
    The first command is a dry run. The apply command refuses to overwrite an existing hosted dataset and verifies every transferred company. It does not change the local database.
 
 4. Import `Apurwa4/B2B-Market-Research` into Vercel. Use Next.js, Node.js 24.x, and the default repository root (the directory containing `package.json`). Set the Supabase environment variables in Vercel.
-5. Set `WORKSPACE_SITE_URL` to the canonical deployed HTTPS origin and allow `<origin>/auth/callback` in Supabase Authentication URL Configuration. Set that origin as Supabase's Site URL as well. Configure an appropriate email delivery provider in Supabase if required for your team.
-6. Set `WORKSPACE_ALLOWED_EMAILS` to the comma-separated approved team emails when ready, then redeploy. The server checks verified email ownership against this allowlist on pages and API requests. Revoking an email takes effect through the updated server configuration, even for an existing session.
+5. Leave `WORKSPACE_ACCESS_MODE` unset or set it to `public`, then deploy. Existing email allowlists and the old `WORKSPACE_AUTH_REQUIRED` setting do not restrict public access.
 
-`npm run deploy:check` checks the environment names without printing keys. `vercel.json` supplies standard Next.js build settings. The database schema, live email delivery, and hosted deployment cannot be verified until the external projects are connected.
+`npm run deploy:check` checks the environment names without printing keys. `vercel.json` supplies standard Next.js build settings. The same Supabase database is used across deployments, so saved records are preserved.
 
-Locally, sign-in remains optional. Set `WORKSPACE_DATABASE=supabase` and `WORKSPACE_AUTH_REQUIRED=true` to exercise the hosted access behavior; leave it unset or false for ordinary local development.
+To restore private access later, set `WORKSPACE_ACCESS_MODE=private`, configure `WORKSPACE_ALLOWED_EMAILS` with approved email addresses, and redeploy. Set `WORKSPACE_SITE_URL` to the deployed HTTPS origin and configure that origin plus `<origin>/auth/callback` in Supabase Authentication URL Configuration. Private mode requires verified email ownership on both pages and API requests; an empty allowlist grants nobody access. Set up Supabase email delivery before enabling private mode. For local testing against the cloud database, also set `WORKSPACE_DATABASE=supabase`.
 
 ## Current integration behavior
 

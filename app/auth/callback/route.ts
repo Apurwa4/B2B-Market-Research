@@ -1,9 +1,15 @@
 import { authClient } from '@/lib/workspace-auth';
 import { completeEmailSignIn } from '@/lib/sign-in-result.mjs';
 import { NextResponse } from 'next/server';
+import { requiresWorkspaceAuth } from '@/lib/access-policy.mjs';
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
+  if (!requiresWorkspaceAuth()) {
+    const response = NextResponse.redirect(new URL('/', url.origin));
+    response.headers.set('Cache-Control', 'private, no-store');
+    return response;
+  }
   let reason = 'unavailable';
   try {
     const result = await completeEmailSignIn(url.searchParams, await authClient());
