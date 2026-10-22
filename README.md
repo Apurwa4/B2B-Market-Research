@@ -1,59 +1,70 @@
 # iGT · Market Research
 
-A Next.js and TypeScript application built from the **visible tabs only** of the Winter 26.27 centralized market research workbook.
+A **local Next.js + TypeScript application** built from the visible tabs of the Winter 26.27 workbook. Keep development local; deployment is deferred until requested. No ChatGPT Sites or Cloudflare account is required.
 
-## Included
+## Run locally
 
-- Overview with live database counts, team progress, and resource shortcuts.
-- Searchable company directory with team, product, industry, and status filters, pagination, CSV export, and add/edit forms.
-- CRM-added and contacted toggles, call outcomes, booklet-sent status, follow-up dates, pitching points, and notes.
-- Outreach view of companies marked as added to the CRM.
-- Four team views: Team Ashmitha (10 companies), Apurwa (7), Team Avidu (13), and Team Thaniya (16).
-- All seven Home workflow instructions and all 13 original resource URLs.
-- A shared, persistent database; company records are never stored only in browser storage.
-
-## Architecture
-
-The frontend uses the genuine Next.js App Router and React, with a static production export. A small Cloudflare Worker serves the exported assets and `/api/companies` API. Cloudflare D1 provides durable shared SQLite storage, without database credentials in the browser. Sites provisions the private hosted deployment and D1 binding. This architecture keeps the requested Next.js frontend while supporting Sites hosting.
-
-`npm run dev:ui` is useful for layout-only Next.js development; it does not provide the Worker API. Use the full app commands below for records and edits.
-
-## Local development
-
-Requires Node.js 22.13+ (Node 26 used for verification) and npm.
+Requires Node.js **22.13 or later** (Node 26 used for verification).
 
 ```sh
 npm ci
-npm run db:local
 npm run dev
 ```
 
-Open `http://127.0.0.1:3100`. The dev script builds the Next.js frontend and launches Wrangler with persistent local storage. Rebuild/restart after frontend changes. Local and hosted databases are separate. Wrangler uses a placeholder database ID for local development; do not use it for a manual remote deployment.
+Open **http://127.0.0.1:3100** (or http://localhost:3100).
+
+This runs the Next.js frontend and API together, with hot reload. The first API request imports the workbook records. Edits persist in `.local/market-research.sqlite`, which is ignored by Git. No environment variables or database signup are needed for local use. Copy `.env.example` to `.env.local` only if you want to choose a different database path.
+
+Previously created local preview records are preserved when migrating from the old preview database. Old `.wrangler` files can remain as an ignored backup; the application no longer uses them.
+
+## Features
+
+- Overview with company counts, team progress, and resource shortcuts.
+- Team performance charts on Overview and Teams: research/CRM/contact counts, contact completion rates, GTe/GTa filters, and click-through to company records. Charts use current saved statuses, not historical activity trends.
+- Company search, team/product/industry/status filters, pagination, CSV export, and add/edit forms.
+- CRM and contacted toggles, call outcomes, booklet-sent status, follow-up dates, pitching points, and notes.
+- Outreach view of companies marked as added to the CRM.
+- Four teams: Team Ashmitha (10 imported companies), Apurwa (7), Team Avidu (13), and Team Thaniya (16).
+- All seven Home workflow instructions and all 13 original resource links.
+- A deeper emerald and olive palette, with stronger text contrast and distinct status colors.
+
+## Checks and production build
 
 ```sh
-npm run typecheck
 npm test
 npm run build
+npm run typecheck
+npm start
 ```
+
+`npm start` serves a production build locally on port 3100. `npm run dev` runs the development server.
+
+## Source layout
+
+- `app/` — Next.js pages and route handlers.
+- `app/theme.css` — color palette overrides.
+- `components/workspace.tsx` — dashboard, directory, team views, resources, and company editor.
+- `lib/company-api.mjs` — input validation, workbook seeding, and company operations.
+- `lib/database.mjs` — persistent local SQLite storage.
+- `data/workbook.json` — visible workbook contents and original resource URLs.
+- `scripts/import-workbook.py` — workbook importer, excluding hidden tabs before reading cell data.
 
 ## Workbook import
 
-`data/workbook.json` is a snapshot of the uploaded file, including Home resources, normalized named-company records, original source row IDs, and any nonstandard extra cells. Hidden sheets are excluded before reading their cell data. One visible Team Avidu row has a member name but no company; it is retained in `importInfo.unassignedRows` and is not turned into a blank company. Phone values stored in Excel scientific notation are expanded; nine-digit Sri Lankan numbers receive a leading zero.
-
-Recreate the snapshot from an authorized local workbook:
+The snapshot contains 46 named companies. One Team Avidu row contains a member name without a company and is retained in `importInfo.unassignedRows`. Nonstandard cells and original source row IDs are preserved. Excel scientific notation phone values are expanded; nine-digit Sri Lankan numbers receive a leading zero.
 
 ```sh
 python3 scripts/import-workbook.py '/absolute/path/to/workbook.xlsx'
 ```
 
-The initial 46 companies are imported atomically on the first database request. Subsequent visits do not reset edits or insert duplicate seed records. Changing the JSON later does not overwrite an already imported database.
+The seed runs once per database. Re-importing the snapshot does not overwrite saved database edits. The source workbook remains unchanged.
 
-## Access and integrations
+## Vercel later
 
-The hosted site is initially owner-private; Sites handles sign-in and access. All permitted visitors share the same company directory. Per-team restrictions and individual application roles are not implemented. Keep the site private: the API relies on the Sites access boundary and rejects cross-origin writes. Local development should remain on loopback.
+The project now uses standard `next dev`, `next build`, and `next start`, with native Next.js API route handlers and no Worker/static export adapter. When the application is complete, set the Vercel project root to `B2B-Market-Research`.
 
-CRM Added is a manual tracking field, matching the spreadsheet. It does not create records in the external AIESEC CRM. Booklet Sent is also manual, not an email sender. Resources open their original destinations in a new tab; permissions remain controlled by their providers. The workbook is imported once, without continuous Google Sheets synchronization.
+**Before deployment:** replace the development SQLite connection with a persistent hosted database and add application sign-in/access controls. Vercel's function filesystem is not durable storage. The local adapter deliberately refuses to run when `VERCEL` is set, to prevent lost records. No deployment or remote database provisioning is performed by the local development workflow.
 
-## Deployment
+## Current integration behavior
 
-`.openai/hosting.json` records the Sites identity and D1 binding. The build produces `dist/client` (Next.js assets), `dist/server/index.js` (Worker), and `dist/.openai/hosting.json`. Drizzle contains schema-only migrations. Sites applies those migrations before serving the private deployment. Source changes are committed and pushed using the Sites source workflow before publication.
+CRM Added and Booklet Sent remain manual tracking fields, matching the spreadsheet. They do not automatically create external CRM records or send email. Resource links open their original destinations and retain their providers' access requirements. The workbook is a one-time import, without live Google Sheets synchronization.

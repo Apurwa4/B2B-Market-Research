@@ -4,28 +4,25 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "npm run build && wrangler dev --ip 127.0.0.1 --port 3100",
-    "dev:ui": "next dev",
-    "build": "next build && node scripts/build-worker.mjs",
+    "dev": "next dev --hostname 127.0.0.1 --port 3100",
+    "build": "next build",
+    "start": "next start --hostname 127.0.0.1 --port 3100",
     "typecheck": "tsc --noEmit",
-    "db:generate": "drizzle-kit generate",
-    "db:local": "wrangler d1 migrations apply DB --local",
     "test": "node --test tests/*.test.mjs"
   },
   "dependencies": {
+    "lucide-react": "^0.468.0",
     "next": "^16.0.0",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "lucide-react": "^0.468.0"
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
-    "typescript": "^5.9.0",
     "@types/node": "^22.0.0",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
-    "esbuild": "^0.25.0",
-    "wrangler": "^4.0.0",
-    "drizzle-kit": "^0.31.0",
-    "drizzle-orm": "^0.45.0"
+    "typescript": "^5.9.0"
+  },
+  "engines": {
+    "node": ">=22.13.0"
   }
 }

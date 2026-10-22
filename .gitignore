@@ -7,3 +7,6 @@ dist/
 !.env.example
 *.tsbuildinfo
 .DS_Store
+
+# Local company database and SQLite journal files
+.local/

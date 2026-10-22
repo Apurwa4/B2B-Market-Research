@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
-import { handleApi, validateCompany, seed } from '../worker/api.mjs';
+import { handleApi, validateCompany, seed } from '../lib/company-api.mjs';
 import workbook from '../data/workbook.json' with { type: 'json' };
 
 function database() {
