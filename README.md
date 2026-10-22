@@ -83,7 +83,7 @@ The Vercel and Supabase account connections are required to provision resources 
 
 `npm run deploy:check` checks the environment names without printing keys. `vercel.json` supplies standard Next.js build settings. The database schema, live email delivery, and hosted deployment cannot be verified until the external projects are connected.
 
-Locally, sign-in remains optional. Set `WORKSPACE_AUTH_REQUIRED=true` to exercise the hosted access behavior; leave it unset or false for ordinary local development.
+Locally, sign-in remains optional. Set `WORKSPACE_DATABASE=supabase` and `WORKSPACE_AUTH_REQUIRED=true` to exercise the hosted access behavior; leave it unset or false for ordinary local development.
 
 ## Current integration behavior
 
