@@ -53,4 +53,5 @@ def extract(path):
   return {'home':home,'steps':steps,'resources':resources,'teams':teams,'companies':records,'importInfo':{'counts':counts,'visibleTabs':['Home']+teams,'unassignedRows':unmapped,'source':'iGT Winter 26.27 | Centralized Market Research','resourceCount':len(resources)}}
 if __name__=='__main__':
  data=extract(sys.argv[1]);Path('data/workbook.json').write_text(json.dumps(data,ensure_ascii=False,indent=2))
+ Path('data/workspace-content.json').write_text(json.dumps({key:data[key] for key in ['home','steps','resources','teams']},ensure_ascii=False,indent=2)+'\n')
  print(json.dumps({'companies':len(data['companies']),'counts':data['importInfo']['counts'],'resources':len(data['resources']),'unassignedRows':len(data['importInfo']['unassignedRows'])}))

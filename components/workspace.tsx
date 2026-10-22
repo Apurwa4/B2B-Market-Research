@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import { ArrowDownToLine, ArrowRight, ArrowUpRight, BookOpen, Building2, Check, CheckCheck, ChevronDown, ChevronLeft, ChevronRight, ClipboardList, ExternalLink, FileText, Globe2, LayoutDashboard, Link2, Loader2, Mail, Menu, MoreHorizontal, Pencil, Phone, Plus, Search, SlidersHorizontal, Target, Users, X } from 'lucide-react';
-import workbook from '@/data/workbook.json';
+import workbook from '@/data/workspace-content.json';
 import type { Company } from '@/lib/types';
 import TeamPerformance from '@/components/team-performance';
 
@@ -21,7 +21,7 @@ function ResourceLink({ resource, compact = false }: { resource: (typeof workboo
   return <a className={`resource-link ${compact ? 'compact' : ''}`} href={resource.url} target="_blank" rel="noopener noreferrer"><span className="resource-icon">{resource.name.toLowerCase().includes('hub') ? <Globe2 size={19}/> : resource.name.includes('video') ? <Phone size={19}/> : <FileText size={19}/>}</span><span><strong>{resource.name}</strong><small>{resource.category === 'References' ? 'Outreach reference' : 'Learning & enablement'}</small></span><ArrowUpRight size={17}/></a>;
 }
 
-export default function Workspace() {
+export default function Workspace({ authenticated = false }: { authenticated?: boolean }) {
   const [view, setView] = useState<View>('Overview');
   const [companies, setCompanies] = useState<Company[]>([]);
   const [loading, setLoading] = useState(true);
@@ -79,7 +79,7 @@ export default function Workspace() {
       <nav aria-label="Main navigation">{navItems.map(({name,icon: Icon}) => <button key={name} className={`nav-item ${view === name ? 'active' : ''}`} onClick={() => navigate(name)}><Icon size={19}/><span>{name}</span>{name === 'Companies' && !busy && <small>{stats.total}</small>}{view === name && <span className="active-dot"/>}</button>)}</nav>
       <div className="team-label"><span className="nav-label">YOUR TEAMS</span><span className="tiny-count">04</span></div>
       <div className="team-nav">{teamNames.map((t,i) => <button key={t} onClick={() => goToTeam(t)}><span className={`team-dot dot-${i}`}/>{shortTeam(t)}<ChevronRight size={14}/></button>)}</div>
-      <div className="sidebar-bottom"><div className="workspace-tip"><span>Better research.<br/>Stronger partnerships.</span><p>Everything your team needs to turn possibilities into opportunities.</p><button onClick={() => navigate('Resources')}>Explore resources <ArrowUpRight size={15}/></button></div><div className="sidebar-footer"><span className="avatar">IG</span><span>iGT Workspace<small>Winter 26.27 · Kandy</small></span><span className="online-dot"/></div></div>
+      <div className="sidebar-bottom"><div className="workspace-tip"><span>Better research.<br/>Stronger partnerships.</span><p>Everything your team needs to turn possibilities into opportunities.</p><button onClick={() => navigate('Resources')}>Explore resources <ArrowUpRight size={15}/></button></div><div className="sidebar-footer"><span className="avatar">IG</span><span>iGT Workspace<small>Winter 26.27 · Kandy</small></span><span className="online-dot"/></div>{authenticated && <form action="/auth/signout" method="post" className="workspace-signout"><button type="submit">Sign out</button></form>}</div>
     </aside>
     <div className="main-shell">
       <header className="topbar"><div className="breadcrumb"><button className="mobile-menu icon-button" aria-label="Open navigation" onClick={() => setSidebar(true)}><Menu size={20}/></button><span>Workspace</span><ChevronRight size={14}/><strong>{view}</strong></div><div className="topbar-actions"><span className="season-badge"><span/> Winter 26.27</span></div></header>

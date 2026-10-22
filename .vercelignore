@@ -1,0 +1,9 @@
+.git
+.local
+.wrangler
+.next
+out
+dist
+.env*
+!.env.example
+*.tsbuildinfo

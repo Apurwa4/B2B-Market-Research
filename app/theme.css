@@ -240,3 +240,16 @@ tbody tr:hover { background: #f4f8ee; }
 .coverage-detail { font-size: 9px; color: #6e825f; }
 @media(max-width:980px) { .performance-grid { grid-template-columns: 1fr; gap: 15px; } .coverage-chart { grid-template-columns: 1fr 1fr; gap: 20px; } }
 @media(max-width:740px) { .performance-heading { align-items: flex-start; gap: 8px; } .performance-heading p { max-width: 230px; line-height: 1.7; } .performance-filter select { max-width: 110px; } .chart-scale, .volume-row { grid-template-columns: 65px minmax(0, 1fr); gap: 8px; } .volume-chart { padding-inline: 16px; } .chart-legend { padding-inline: 16px; gap: 13px; } .chart-team-name { font-size: 10px; } .coverage-chart { grid-template-columns: 1fr; gap: 17px; } .coverage-summary { gap: 12px; } .coverage-summary > strong { font-size: 31px; } .coverage-summary b { font-size: 10px; } .coverage-summary > div > span { font-size: 9px; } .performance-panel .panel-heading p { font-size: 9px; } .performance-panel .count-badge { font-size: 8px; white-space: nowrap; } }
+
+.login-page { min-height: 100dvh; max-width: none; display: grid; place-items: center; padding: 30px 18px; background: #112e25; }
+.login-card { width: min(100%, 430px); padding: 35px; border: 1px solid #cbdabc; border-radius: 14px; background: #f9fcf4; box-shadow: 0 20px 70px #051a1d40; }
+.login-wordmark { display: block; color: #235b36; font-family: Manrope, sans-serif; font-size: 35px; font-weight: 800; letter-spacing: -2px; margin-bottom: 23px; }
+.login-card h1 { font-family: Manrope, sans-serif; font-size: 24px; color: #214c2c; letter-spacing: -.7px; margin: 12px 0; }
+.login-card > p { font-size: 12px; color: #5d7650; line-height: 1.8; }
+.login-form { margin-top: 25px; display: grid; gap: 10px; }
+.login-form label { color: #3d6331; font-size: 11px; font-weight: 600; }
+.login-form input { border: 1px solid #bfd2ac; background: #fff; border-radius: 6px; padding: 12px; color: #2d512b; font: inherit; }
+.login-form .button { margin-top: 6px; padding: 12px; }
+.login-message { font-size: 11px; color: #4e703d; line-height: 1.8; background: #e9f1df; padding: 12px; border-radius: 6px; margin-top: 13px; }
+.workspace-signout { padding: 0 4px 18px; }
+.workspace-signout button { color: #d6e6c6; text-decoration: underline; font-size: 11px; padding: 0; }

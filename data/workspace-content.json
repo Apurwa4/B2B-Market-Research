@@ -1,0 +1,88 @@
+{
+  "home": {
+    "title": "iGT Winter 26.27 | Centralized Market Research",
+    "description": "Find companies which might be interested in our programs and capabale of hiring foreign interns.\nUse Linkedn , Facebook, Instagram or any other websites to find companies."
+  },
+  "steps": [
+    "Do the market research and add companies to the given sheets",
+    "Add those companies to the CRM",
+    "Mark the CRM avalabilty",
+    "Start cold calling",
+    "Track the progress",
+    "Sending iGT booklet",
+    "Follow up the companies"
+  ],
+  "resources": [
+    {
+      "name": "Cold Calling Script",
+      "url": "https://docs.google.com/document/d/1zhnhp6AvfsZj_naD6P8IlohVsd_U_2WXyLMWTQB19aQ/edit?usp=sharing",
+      "category": "References"
+    },
+    {
+      "name": "iGTe Booklet",
+      "url": "https://drive.google.com/file/d/1YCRqG9FGnse9cqxTgAklrjR2eRXrTCM4/view?usp=drivesdk",
+      "category": "References"
+    },
+    {
+      "name": "IGTa Booklet",
+      "url": "https://drive.google.com/file/d/1PhCERFD2SzXQq-Wb60gt8GeMPd1iWcGu/view?usp=sharing",
+      "category": "References"
+    },
+    {
+      "name": "Partnership Proposal",
+      "url": "https://drive.google.com/file/d/1vSzpfewRwsa1R-EP1svn5UDbl5CtTq4_/view?usp=sharing",
+      "category": "References"
+    },
+    {
+      "name": "CRM link",
+      "url": "https://crm.aiesec.lk/partnerships",
+      "category": "References"
+    },
+    {
+      "name": "CRM tutorial video",
+      "url": "https://drive.google.com/file/d/1ipYQRtQFHhyunIHDG4JrgPD9ZOZ0qN-5/view?usp=sharing",
+      "category": "References"
+    },
+    {
+      "name": "AIESEC Hub",
+      "url": "https://aiesechub.squarespace.com/",
+      "category": "Resources"
+    },
+    {
+      "name": "GTa Academy",
+      "url": "https://aiesechub.squarespace.com/gta-academy-2023",
+      "category": "Resources"
+    },
+    {
+      "name": "GTe Academy",
+      "url": "https://aiesechub.squarespace.com/gte-academy-2023",
+      "category": "Resources"
+    },
+    {
+      "name": "Infinity Hub",
+      "url": "https://hub.aiesec.lk/index.php",
+      "category": "Resources"
+    },
+    {
+      "name": "ASL iGT Hub",
+      "url": "https://docs.google.com/spreadsheets/d/1IpcMvlfWrN94CXOCfNJBG-0B30NCl48F3J1au2fag1E/edit?usp=sharing",
+      "category": "Resources"
+    },
+    {
+      "name": "APIP & AEPP",
+      "url": "https://drive.google.com/drive/folders/1ijYrZi43DHbDdOqwsSKP5TKd4_Ds8rsh",
+      "category": "Resources"
+    },
+    {
+      "name": "National iGT Contract",
+      "url": "https://drive.google.com/file/d/1BXWks_pmptd4JFRjcxvBIMwU-nDwXXcm/view?usp=sharing",
+      "category": "Resources"
+    }
+  ],
+  "teams": [
+    "Team Ashmitha",
+    "Apurwa",
+    "Team Avidu",
+    "Team Thaniya"
+  ]
+}

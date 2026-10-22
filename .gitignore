@@ -10,3 +10,4 @@ dist/
 
 # Local company database and SQLite journal files
 .local/
+.vercel/
