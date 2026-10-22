@@ -9,3 +9,4 @@
 
 /* Keep dense research records comfortable to read. */
 @media(min-width:741px){.company-name strong{font-size:12px;max-width:220px}.company-name small{font-size:10px}.member-cell{font-size:11px}.status-button,.product-badge{font-size:10px}th{font-size:10px}.table-footer{font-size:10px}.table-toolbar input{font-size:11px}.select-wrap select{font-size:10px}.resource-link.compact strong{font-size:11px}.resource-link.compact small{font-size:9px}.panel-heading p,.section-heading p{font-size:11px}.team-card-top strong{font-size:12px}.team-card-top small{font-size:9px}.team-card-numbers{font-size:10px}.progress-caption{font-size:9px}.stat-card>div{font-size:11px}.stat-card small{font-size:10px}.page-heading p{font-size:12px}.banner-copy p{font-size:12px}.workflow-stages>span{font-size:10px}.workflow-heading strong{font-size:11px}.text-button{font-size:10px}.resource-note p{font-size:10px}}
+.table-scroll{position:relative}
